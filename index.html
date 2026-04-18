@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Expense &amp; Budget Visualizer</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="app-header">
+    <div class="header-inner">
+      <h1 class="app-title">💸 Expense Tracker</h1>
+      <button id="theme-toggle" class="btn-theme" aria-label="Toggle dark/light mode">🌙</button>
+    </div>
+  </header>
+
+  <main class="app-main">
+
+    <!-- Total Balance -->
+    <section class="balance-section">
+      <p class="balance-label">Total Pengeluaran</p>
+      <p id="total-balance" class="balance-amount">Rp 0</p>
+    </section>
+
+    <!-- Input Form -->
+    <section class="form-section">
+      <h2 class="section-title">Tambah Transaksi</h2>
+      <form id="transaction-form" novalidate>
+        <div class="form-group">
+          <label for="input-name">Nama Item</label>
+          <input type="text" id="input-name" placeholder="Contoh: Makan siang" autocomplete="off" />
+          <span class="field-error" id="error-name"></span>
+        </div>
+        <div class="form-group">
+          <label for="input-amount">Jumlah (Rp)</label>
+          <input type="number" id="input-amount" placeholder="Contoh: 25000" min="1" />
+          <span class="field-error" id="error-amount"></span>
+        </div>
+        <div class="form-group">
+          <label for="input-category">Kategori</label>
+          <select id="input-category">
+            <option value="">-- Pilih Kategori --</option>
+            <option value="Food">Food</option>
+            <option value="Transport">Transport</option>
+            <option value="Fun">Fun</option>
+          </select>
+          <span class="field-error" id="error-category"></span>
+        </div>
+        <button type="submit" class="btn-primary">Add Transaction</button>
+      </form>
+    </section>
+
+    <div class="content-grid">
+
+      <!-- Transaction List -->
+      <section class="list-section">
+        <div class="list-header">
+          <h2 class="section-title">Transaksi</h2>
+          <div class="list-controls">
+            <select id="month-filter" aria-label="Filter bulan">
+              <option value="all">All Time</option>
+            </select>
+            <select id="sort-control" aria-label="Urutkan transaksi">
+              <option value="default">Default (Terbaru)</option>
+              <option value="asc">Amount (Terkecil ke Terbesar)</option>
+              <option value="desc">Amount (Terbesar ke Terkecil)</option>
+              <option value="category">Category (A-Z)</option>
+            </select>
+          </div>
+        </div>
+        <ul id="transaction-list" class="transaction-list">
+          <li class="empty-state">Belum ada transaksi.</li>
+        </ul>
+      </section>
+
+      <!-- Pie Chart -->
+      <section class="chart-section">
+        <h2 class="section-title">Distribusi Pengeluaran</h2>
+        <div class="chart-container">
+          <canvas id="expense-chart"></canvas>
+          <p id="chart-empty" class="chart-empty">Belum ada data untuk ditampilkan.</p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Chart.js CDN (must load before chartManager.js) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- App scripts — order matters: validator → store → ui → chartManager → main -->
+  <script src="js/validator.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/chartManager.js"></script>
+  <script src="js/main.js"></script>
+
+</body>
+</html>
